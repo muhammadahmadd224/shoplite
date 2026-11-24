@@ -1,0 +1,6 @@
+NAMES       PORTS
+frontend    0.0.0.0:80->80/tcp, [::]:80->80/tcp, 8080/tcp
+orders      8082/tcp
+inventory   8081/tcp
+catalog     3000/tcp
+postgres    5432/tcp
