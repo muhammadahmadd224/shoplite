@@ -1,0 +1,4 @@
+shop-catalog:1.0.0          7ac33d6b61d2        190MB         50.7MB   U    
+shop-frontend:1.0.0         9dc80df000a3       20.9MB         5.83MB   U    
+shop-inventory:1.0.0        218e68c7c620       21.3MB          4.8MB   U    
+shop-orders:1.0.0           2081d3ef1a38        159MB           64MB   U    

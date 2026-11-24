@@ -1,0 +1,138 @@
+[
+    {
+        "Name": "frontend-net",
+        "Id": "76a05d0d21e42b0e99de5cb31088ee9f9bf05e979a5aa89e031a86fc0deea222",
+        "Created": "2026-11-24T19:56:30.126734656Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {},
+        "Containers": {
+            "5652b570697aef62b7f17da14fe9ebb80e1c4eee7198324621793ac3557220f7": {
+                "Name": "frontend",
+                "EndpointID": "3c940b3fb72daf8a165b5a3f3af7b0e65d5ff6bfdc3f23e9d55fd0338346311e",
+                "MacAddress": "e6:20:29:b1:ea:d3",
+                "IPv4Address": "172.18.0.5/16",
+                "IPv6Address": ""
+            },
+            "74925f1f46285d007f088f70ac3d1ccc979b809721c3b1485d89a8a509f2f496": {
+                "Name": "inventory",
+                "EndpointID": "5febb333b6a4ea48d507f9095dfa131aacd955082fef1dbb756971f5aaf39da7",
+                "MacAddress": "62:3b:75:0c:74:fe",
+                "IPv4Address": "172.18.0.3/16",
+                "IPv6Address": ""
+            },
+            "a58f7220852ad82e5679769dcef8c389d635b7541ddd0be11393a0ecd2a2db14": {
+                "Name": "catalog",
+                "EndpointID": "9e6ddf2648a4b778469631f96562b2f5f169067a27035536413f079157d95a5f",
+                "MacAddress": "5e:ec:26:57:31:59",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            },
+            "a8cbeae3c9a0ae4dee2e47971c54df35869bd51fffe3b2d0f581a1a97f6da5cc": {
+                "Name": "orders",
+                "EndpointID": "782f4c7ec8f076617ae390449470ce7359bd55f79745188a620d71289f0f8f9c",
+                "MacAddress": "76:ff:a5:ae:7f:74",
+                "IPv4Address": "172.18.0.4/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.18.0.0/16": {
+                        "IPsInUse": 7,
+                        "DynamicIPsAvailable": 65529
+                    }
+                }
+            }
+        }
+    },
+    {
+        "Name": "backend-net",
+        "Id": "4d6583d1352a994746c3731302425cb600f78cf58b5f1036423745306873033e",
+        "Created": "2026-11-24T19:56:56.108954263Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16",
+                    "Gateway": "172.19.0.1"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {},
+        "Containers": {
+            "74925f1f46285d007f088f70ac3d1ccc979b809721c3b1485d89a8a509f2f496": {
+                "Name": "inventory",
+                "EndpointID": "92539980e18ca50dec506152b98de9d1a1517e3f9bf66653297e254cfa0ccbf3",
+                "MacAddress": "c6:5a:55:47:65:e0",
+                "IPv4Address": "172.19.0.4/16",
+                "IPv6Address": ""
+            },
+            "a58f7220852ad82e5679769dcef8c389d635b7541ddd0be11393a0ecd2a2db14": {
+                "Name": "catalog",
+                "EndpointID": "cc28521e7677456c37fdb2a705e83a7644c23ae1c52a18ec8e45903421e9b62c",
+                "MacAddress": "8e:9e:ca:b4:03:ae",
+                "IPv4Address": "172.19.0.3/16",
+                "IPv6Address": ""
+            },
+            "a8cbeae3c9a0ae4dee2e47971c54df35869bd51fffe3b2d0f581a1a97f6da5cc": {
+                "Name": "orders",
+                "EndpointID": "53369d6e2a3834a61466a58dfd27c98671b92aa3556b0c7609c9c0c43b196900",
+                "MacAddress": "3e:da:6c:eb:d9:cf",
+                "IPv4Address": "172.19.0.5/16",
+                "IPv6Address": ""
+            },
+            "bed99c18e3b0da1990999dbd675a0f0863517f1bc46bdff6d27e3431c8d6407a": {
+                "Name": "postgres",
+                "EndpointID": "41732a4cf6b1969bd56d07a83abd84385342cc90edd68b911fa9f67046acda5d",
+                "MacAddress": "06:1f:ab:6e:06:c2",
+                "IPv4Address": "172.19.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.19.0.0/16": {
+                        "IPsInUse": 7,
+                        "DynamicIPsAvailable": 65529
+                    }
+                }
+            }
+        }
+    }
+]
