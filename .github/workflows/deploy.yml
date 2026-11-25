@@ -89,4 +89,6 @@ jobs:
             done
 
             ./scripts/up.sh
-            curl -fsS -I http://localhost/ | head -n 5
+            SERVER_HOST="$(awk -F= '/^SERVER_NAME=/{print $2}' .env | tr -d '"' | tr -d "'")"
+            SERVER_HOST="${SERVER_HOST:-shoplite.test}"
+            curl -fsS -I -H "Host: ${SERVER_HOST}" http://127.0.0.1/ | head -n 5
