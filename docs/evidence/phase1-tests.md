@@ -52,10 +52,17 @@ curl -s http://shoplite.test/api/inventory/stock/1
 
 ## Test 4: Backends aren't published
 ```bash
+for p in 3000 8081 8082; do echo "--- curl http://localhost:$p ---"; curl -sS -m 3 http://localhost:$p; echo "exit code: $?"; done
 --- curl http://localhost:3000 ---
+curl: (7) Failed to connect to localhost port 3000 after 0 ms: Could not connect to server
+exit code: 7
 --- curl http://localhost:8081 ---
+curl: (7) Failed to connect to localhost port 8081 after 0 ms: Could not connect to server
+exit code: 7
 --- curl http://localhost:8082 ---
---- docker ps --format '{{.Names}} {{.Ports}}' ---
+curl: (7) Failed to connect to localhost port 8082 after 0 ms: Could not connect to server
+exit code: 7
+docker ps --format '{{.Names}} {{.Ports}}'
 frontend 0.0.0.0:80->80/tcp, [::]:80->80/tcp, 8080/tcp
 orders 8082/tcp
 inventory 8081/tcp
@@ -114,7 +121,8 @@ ShopLite stack is up (TAG=1.0.0).
 curl -v http://127.0.0.1
   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
                                  Dload  Upload  Total   Spent   Left   Speed
-  0      0   0      0   0      0      0      0                              0*   Trying 127.0.0.1:80...
+
+  0      0   0      0   0      0      0      0                              0*   Trying 127.0.0.1:80...
 * Established connection to 127.0.0.1 (127.0.0.1 port 80) from 127.0.0.1 port 55614 
 * using HTTP/1.x
 > GET / HTTP/1.1
@@ -123,14 +131,18 @@ curl -v http://127.0.0.1
 > Accept: */*
 > 
 * Request completely sent off
-  0      0   0      0   0      0      0      0                              0  0      0   0      0   0      0      0      0                              0* Empty reply from server
-  0      0   0      0   0      0      0      0                              0
+
+  0      0   0      0   0      0      0      0                              0
+  0      0   0      0   0      0      0      0                              0* Empty reply from server
+
+  0      0   0      0   0      0      0      0                              0
 * shutting down connection #0
 curl: (52) Empty reply from server
 curl -v -H 'Host: other.test' http://127.0.0.1
   % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
                                  Dload  Upload  Total   Spent   Left   Speed
-  0      0   0      0   0      0      0      0                              0*   Trying 127.0.0.1:80...
+
+  0      0   0      0   0      0      0      0                              0*   Trying 127.0.0.1:80...
 * Established connection to 127.0.0.1 (127.0.0.1 port 80) from 127.0.0.1 port 55620 
 * using HTTP/1.x
 > GET / HTTP/1.1
@@ -139,26 +151,13 @@ curl -v -H 'Host: other.test' http://127.0.0.1
 > Accept: */*
 > 
 * Request completely sent off
-  0      0   0      0   0      0      0      0                              0  0      0   0      0   0      0      0      0                              0* Empty reply from server
-  0      0   0      0   0      0      0      0                              0
+
+  0      0   0      0   0      0      0      0                              0
+  0      0   0      0   0      0      0      0                              0* Empty reply from server
+
+  0      0   0      0   0      0      0      0                              0
 * shutting down connection #0
 curl: (52) Empty reply from server
-```
-## Docker Networks & Images
-```bash
-docker network inspect frontend-net backend-net --format '{{.Name}}: {{range .Containers}}{{.Name}} {{end}}'
-frontend-net: orders inventory catalog frontend 
-backend-net: postgres orders inventory catalog 
---- docker images ---
-REPOSITORY          TAG         SIZE
-shop-frontend       1.0.0       20.9MB
-shop-orders         1.0.0       159MB
-shop-catalog        1.0.0       190MB
-shop-inventory      1.0.0       21.3MB
-postgres            17-alpine   424MB
-busybox             latest      6.81MB
-hello-world         latest      25.9kB
-hadolint/hadolint   v2.12.0     4.82MB
 ```
 ## Docker Networks & Images
 ```bash
