@@ -15,6 +15,17 @@ set +a
 
 TAG="${TAG:-1.0.0}"
 WAIT_SECONDS="${WAIT_SECONDS:-60}"
+HOST_PORT="${HOST_PORT:-80}"
+IMAGE_PREFIX="${REGISTRY:+${REGISTRY}/shoplite/}"
+
+image_for() {
+  local repo_name="$1"
+  if [ -n "$IMAGE_PREFIX" ]; then
+    printf '%s%s:%s\n' "$IMAGE_PREFIX" "$repo_name" "$TAG"
+  else
+    printf 'shop-%s:%s\n' "$repo_name" "$TAG"
+  fi
+}
 
 wait_for_healthy() {
   local name="$1"
@@ -84,7 +95,7 @@ for svc in catalog inventory orders; do
     --restart unless-stopped \
     --network backend-net \
     --env-file .env \
-    "shop-${svc}:${TAG}" >/dev/null
+    "$(image_for "$svc")" >/dev/null
   docker network connect frontend-net "$svc"
 done
 
@@ -92,15 +103,15 @@ for svc in catalog inventory orders; do
   wait_for_healthy "$svc"
 done
 
-# 4. Start frontend on frontend-net only, publishing port 80
+# 4. Start frontend on frontend-net only, publishing port
 recreate_container frontend
 docker run -d \
   --name frontend \
   --restart unless-stopped \
   --network frontend-net \
   -e "SERVER_NAME=${SERVER_NAME:-shoplite.test}" \
-  -p 80:80 \
-  "shop-frontend:${TAG}" >/dev/null
+  -p "${HOST_PORT}:80" \
+  "$(image_for frontend)" >/dev/null
 
 wait_for_healthy frontend
 
